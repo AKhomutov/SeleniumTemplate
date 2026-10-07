@@ -1,0 +1,74 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Selenium Template External" verbose="1">
+
+    <listeners>
+        <listener class-name="com.example.seleniumtemplate.support.reporting.TestFailureListener"/>
+    </listeners>
+
+    <test name="External - Form Authentication">
+        <groups>
+            <run>
+                <include name="external"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.seleniumtemplate.demo.theinternet.FormAuthenticationTest"/>
+        </classes>
+    </test>
+
+    <test name="External - Dynamic Controls">
+        <groups>
+            <run>
+                <include name="external"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.seleniumtemplate.demo.theinternet.DynamicControlsTest"/>
+        </classes>
+    </test>
+
+    <test name="External - Dynamic Loading">
+        <groups>
+            <run>
+                <include name="external"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.seleniumtemplate.demo.theinternet.DynamicLoadingTest"/>
+        </classes>
+    </test>
+
+    <test name="External - Dropdown">
+        <groups>
+            <run>
+                <include name="external"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.seleniumtemplate.demo.theinternet.DropdownTest"/>
+        </classes>
+    </test>
+
+    <test name="External - JavaScript Alerts">
+        <groups>
+            <run>
+                <include name="external"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.seleniumtemplate.demo.theinternet.JavaScriptAlertsTest"/>
+        </classes>
+    </test>
+
+    <test name="External - Multiple Windows">
+        <groups>
+            <run>
+                <include name="external"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.example.seleniumtemplate.demo.theinternet.MultipleWindowsTest"/>
+        </classes>
+    </test>
+
+</suite>

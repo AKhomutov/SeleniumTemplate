@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alerts Fixture</title>
+</head>
+<body>
+<script>
+  function jsAlert() {
+    alert('I am a JS Alert');
+    log('You successfully clicked an alert');
+  }
+
+  function jsConfirm() {
+    var c = confirm('I am a JS Confirm');
+    var result = c === true ? 'Ok' : 'Cancel';
+    log('You clicked: ' + result);
+  }
+
+  function jsPrompt() {
+    var p = prompt('I am a JS prompt');
+    log('You entered: ' + p);
+  }
+
+  function log(msg) {
+    document.getElementById('result').textContent = msg;
+  }
+</script>
+
+<button id="alert-btn" onclick="jsAlert()">Click for JS Alert</button>
+<button id="confirm-btn" onclick="jsConfirm()">Click for JS Confirm</button>
+<button id="prompt-btn" onclick="jsPrompt()">Click for JS Prompt</button>
+<p id="result"></p>
+</body>
+</html>

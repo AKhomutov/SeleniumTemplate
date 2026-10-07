@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indexed Click Fixture</title>
+</head>
+<body>
+<ul id="list"></ul>
+<div id="result">none</div>
+<script>
+    (function () {
+        const list = document.getElementById("list");
+        const result = document.getElementById("result");
+        let index = 0;
+
+        function appendNext() {
+            if (index >= 3) {
+                return;
+            }
+            const item = document.createElement("li");
+            item.className = "item";
+            item.textContent = "Item " + index;
+            const captured = index;
+            item.addEventListener("click", function () {
+                result.textContent = "clicked-" + captured;
+            });
+            list.appendChild(item);
+            index += 1;
+            requestAnimationFrame(appendNext);
+        }
+
+        requestAnimationFrame(appendNext);
+    })();
+</script>
+</body>
+</html>

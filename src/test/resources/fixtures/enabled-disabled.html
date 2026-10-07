@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enabled / Disabled Fixture</title>
+</head>
+<body>
+<input id="becomes-enabled" type="text" disabled>
+<input id="becomes-disabled" type="text">
+<script>
+    setTimeout(function () {
+        document.getElementById("becomes-enabled").disabled = false;
+    }, 400);
+    setTimeout(function () {
+        document.getElementById("becomes-disabled").disabled = true;
+    }, 400);
+</script>
+</body>
+</html>

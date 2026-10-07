@@ -1,0 +1,92 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '4.3.0'
+}
+
+group = 'com.example'
+version = '0.1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.seleniumhq.selenium:selenium-java:4.50.0'
+    implementation 'org.jspecify:jspecify:1.0.1'
+    implementation 'com.typesafe:config:1.4.9'
+    implementation 'io.rest-assured:rest-assured:6.0.1'
+    implementation platform('com.fasterxml.jackson:jackson-bom:2.22.3')
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    implementation 'org.slf4j:slf4j-api:2.0.20'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.6.5'
+
+    implementation 'com.zaxxer:HikariCP:6.3.2'
+
+    testImplementation 'org.testng:testng:7.12.0'
+    testImplementation 'org.assertj:assertj-core:3.27.7'
+    testImplementation 'io.qameta.allure:allure-testng:2.29.1'
+    testRuntimeOnly 'com.h2database:h2:2.3.232'
+}
+
+allure {
+    // Allure 2 commandline keeps familiar HTML report layout for this template.
+    version = '2.29.0'
+    adapter {
+        allureJavaVersion = '2.29.1'
+        autoconfigure = false
+        aspectjWeaver = false
+    }
+}
+
+tasks.withType(Test).configureEach {
+    // Forward -Dtest.* from the Gradle JVM into the test worker.
+    System.properties.each { key, value ->
+        if (key.toString().startsWith('test.')) {
+            systemProperty key.toString(), value.toString()
+        }
+    }
+
+    // Forward explicit profile only. Do not inject "local" — ConfigLoader resolves
+    // TEST_PROFILE or its own default when test.profile is unset in the test JVM.
+    def profile = System.getProperty('test.profile') ?: findProperty('testProfile')
+    if (profile != null) {
+        systemProperty 'test.profile', profile.toString()
+    }
+    systemProperty 'allure.results.directory',
+            layout.buildDirectory.dir('allure-results').get().asFile.absolutePath
+}
+
+tasks.named('test') {
+    useTestNG {
+        suites 'src/test/resources/testng.xml'
+    }
+}
+
+tasks.register('testExternal', Test) {
+    description = 'Runs external demo/integration tests against live sites'
+    group = 'verification'
+    useTestNG {
+        suites 'src/test/resources/testng-external.xml'
+    }
+    shouldRunAfter test
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('testRemoteSmoke', Test) {
+    description = 'Deterministic browser smoke for LOCAL or REMOTE Selenium endpoint (optional Docker)'
+    group = 'verification'
+    useTestNG {
+        suites 'src/test/resources/testng-remote-smoke.xml'
+    }
+    shouldRunAfter test
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+}

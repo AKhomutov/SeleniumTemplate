@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Present vs Visible Fixture</title>
+</head>
+<body>
+
+<section id="hidden-example">
+    <h2>Hidden element already in DOM</h2>
+    <button id="hidden-start" type="button">Start</button>
+    <div id="hidden-finish" style="display:none">
+        <h4>Hello World!</h4>
+    </div>
+</section>
+
+<section id="deferred-example">
+    <h2>Element rendered after the fact</h2>
+    <button id="deferred-start" type="button">Start</button>
+</section>
+
+<script>
+    (function () {
+        const delayMs = 200;
+
+        document.getElementById("hidden-start").addEventListener("click", function () {
+            setTimeout(function () {
+                document.getElementById("hidden-finish").style.display = "block";
+            }, delayMs);
+        });
+
+        document.getElementById("deferred-start").addEventListener("click", function () {
+            setTimeout(function () {
+                const finish = document.createElement("div");
+                finish.id = "deferred-finish";
+                finish.innerHTML = "<h4>Hello World!</h4>";
+                document.getElementById("deferred-example").appendChild(finish);
+            }, delayMs);
+        });
+    })();
+</script>
+
+</body>
+</html>

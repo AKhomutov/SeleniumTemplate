@@ -1,0 +1,55 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Selenium Template" verbose="1">
+
+    <listeners>
+        <listener class-name="com.example.seleniumtemplate.support.reporting.TestFailureListener"/>
+    </listeners>
+
+    <test name="Smoke">
+        <classes>
+            <class name="com.example.seleniumtemplate.BrowserSmokeTest"/>
+            <class name="com.example.seleniumtemplate.ApplicationContextBindTest"/>
+        </classes>
+    </test>
+
+    <test name="Config">
+        <classes>
+            <class name="com.example.seleniumtemplate.core.config.ConfigLoaderTest"/>
+        </classes>
+    </test>
+
+    <test name="API Reliability">
+        <classes>
+            <class name="com.example.seleniumtemplate.api.ApiClientReliabilityTest"/>
+        </classes>
+    </test>
+
+    <test name="DB Reliability">
+        <classes>
+            <class name="com.example.seleniumtemplate.db.DatabaseClientReliabilityTest"/>
+        </classes>
+    </test>
+
+    <test name="Reporting Reliability">
+        <classes>
+            <class name="com.example.seleniumtemplate.reporting.ReportingDiagnosticsReliabilityTest"/>
+        </classes>
+    </test>
+
+    <test name="UI Reliability">
+        <classes>
+            <class name="com.example.seleniumtemplate.ui.UiActionsStaleRetryTest"/>
+            <class name="com.example.seleniumtemplate.ui.ApplicationManagerUiWiringTest"/>
+            <class name="com.example.seleniumtemplate.ui.UiBrowserReliabilityTest"/>
+            <class name="com.example.seleniumtemplate.ui.AlertActionsReliabilityTest"/>
+            <class name="com.example.seleniumtemplate.ui.WindowActionsReliabilityTest"/>
+        </classes>
+    </test>
+
+    <test name="Parallel Session Isolation" parallel="methods" thread-count="2">
+        <classes>
+            <class name="com.example.seleniumtemplate.ParallelSessionIsolationTest"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Steady Element Fixture</title>
+    <style>
+        #box {
+            position: absolute;
+            left: 0;
+            top: 40px;
+            width: 80px;
+            height: 40px;
+            background: #336699;
+            color: white;
+            line-height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="status">moving</div>
+<div id="box">target</div>
+<script>
+    (function () {
+        const box = document.getElementById("box");
+        const status = document.getElementById("status");
+        let x = 0;
+        const end = 120;
+
+        function step() {
+            x += 8;
+            box.style.left = x + "px";
+            if (x < end) {
+                requestAnimationFrame(step);
+            } else {
+                status.textContent = "stopped";
+            }
+        }
+
+        requestAnimationFrame(step);
+    })();
+</script>
+</body>
+</html>
